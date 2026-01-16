@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Projects | Suneetha Portfolio</title>
+    <link rel="stylesheet" href="style/styles.css" />
+    <link rel="icon" href="assets/favicon.ico" />
+    <script src="script/script.js" defer></script>
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <header class="header">
+      <a href="index.html" class="logo">Portfolio</a>
+      <nav class="navbar">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="skill.html">Skills</a>
+        <a href="projects.html" class="active">Projects</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="mobile-menu-toggle">
+        <i class="bx bx-menu"></i>
+      </div>
+    </header>
+
+    <section class="projects-page">
+      <h1 class="sub-title">My <span>Projects</span></h1>
+      <p class="projects-intro">
+        Here are some of my recent projects fetched directly from GitHub
+      </p>
+
+      <div id="loading" class="loading">
+        <i class="bx bx-loader-alt bx-spin"></i>
+        <p>Loading projects from GitHub...</p>
+      </div>
+
+      <div id="projects-container" class="projects-container">
+        <!-- Projects will be dynamically loaded here -->
+      </div>
+
+      <div id="error-message" class="error-message" style="display: none">
+        <i class="bx bx-error"></i>
+        <p>Unable to load projects. Please try again later.</p>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <div class="footer-content">
+        <div class="footer-left">
+          <h3>Suneetha</h3>
+          <p>Front End Developer</p>
+          <p>Stockholm, Sweden</p>
+        </div>
+
+        <div class="footer-center">
+          <h4>Contact Details</h4>
+          <p><i class="bx bx-envelope"></i> sidda24suneetha@gmail.com</p>
+          <p><i class="bx bx-phone"></i> +46 761670705</p>
+          <p><i class="bx bx-map"></i> Stockholm, Sweden</p>
+        </div>
+
+        <div class="footer-right">
+          <h4>Follow Me</h4>
+          <div class="footer-social">
+            <a href="https://facebook.com" target="_blank" aria-label="Facebook"
+              ><i class="bx bxl-facebook"></i
+            ></a>
+            <a
+              href="https://instagram.com"
+              target="_blank"
+              aria-label="Instagram"
+              ><i class="bx bxl-instagram"></i
+            ></a>
+            <a href="https://linkedin.com" target="_blank" aria-label="LinkedIn"
+              ><i class="bx bxl-linkedin"></i
+            ></a>
+            <a
+              href="https://github.com/SuneethaBandaru"
+              target="_blank"
+              aria-label="GitHub"
+              ><i class="bx bxl-github"></i
+            ></a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
