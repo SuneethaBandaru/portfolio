@@ -4,7 +4,10 @@ const navbar = document.querySelector(".navbar");
 
 if (mobileMenuToggle) {
   mobileMenuToggle.addEventListener("click", () => {
+    const isExpanded = navbar.classList.contains("active");
     navbar.classList.toggle("active");
+    mobileMenuToggle.setAttribute("aria-expanded", !isExpanded);
+
     const icon = mobileMenuToggle.querySelector("i");
     if (navbar.classList.contains("active")) {
       icon.classList.remove("bx-menu");
@@ -20,6 +23,7 @@ if (mobileMenuToggle) {
   navLinks.forEach((link) => {
     link.addEventListener("click", () => {
       navbar.classList.remove("active");
+      mobileMenuToggle.setAttribute("aria-expanded", false);
       const icon = mobileMenuToggle.querySelector("i");
       icon.classList.remove("bx-x");
       icon.classList.add("bx-menu");
@@ -60,8 +64,6 @@ window.addEventListener("scroll", () => {
 
   sections.forEach((section) => {
     const sectionTop = section.offsetTop;
-    const sectionHeight = section.clientHeight;
-
     if (scrollY >= sectionTop - 200) {
       current = section.getAttribute("id");
     }
@@ -129,7 +131,7 @@ if (document.getElementById("projects-container")) {
     const linksContainer = document.createElement("div");
     linksContainer.className = "project-links";
 
-    // GitHub Link
+    // GitHub Link - Always present
     const githubLink = document.createElement("a");
     githubLink.href = repo.html_url;
     githubLink.className = "project-link";
@@ -148,7 +150,7 @@ if (document.getElementById("projects-container")) {
       liveLink.innerHTML = '<i class="bx bx-link-external"></i> Live Demo';
       linksContainer.appendChild(liveLink);
     } else {
-      // If no homepage, create a GitHub Pages link based on repo name
+      // If no homepage, create a GitHub Pages link
       const pagesLink = document.createElement("a");
       pagesLink.href = `https://${username}.github.io/${repo.name}`;
       pagesLink.className = "project-link";
@@ -170,13 +172,14 @@ if (document.getElementById("projects-container")) {
   fetchGitHubProjects();
 }
 
-// Contact Form Handling
+// Contact Form Handling with mailto
 if (document.getElementById("contact-form")) {
   const contactForm = document.getElementById("contact-form");
   const formMessage = document.getElementById("form-message");
 
   contactForm.addEventListener("submit", function (e) {
-    // Allow the mailto: to work, but show a message
+    e.preventDefault();
+
     const name = document.getElementById("name").value;
     const email = document.getElementById("email").value;
     const subject = document.getElementById("subject").value;
@@ -184,7 +187,6 @@ if (document.getElementById("contact-form")) {
 
     // Basic validation
     if (!name || !email || !subject || !message) {
-      e.preventDefault();
       showMessage("Please fill in all fields.", "error");
       return;
     }
@@ -192,15 +194,25 @@ if (document.getElementById("contact-form")) {
     // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-      e.preventDefault();
       showMessage("Please enter a valid email address.", "error");
       return;
     }
 
+    // Create mailto link
+    const mailtoLink = `mailto:sidda24suneetha@gmail.com?subject=${encodeURIComponent(
+      subject,
+    )}&body=${encodeURIComponent(
+      `Name:  ${name}\nEmail:  ${email}\nSubject:  ${subject}\nMessage:  ${message}`,
+    )}`;
+
+    // Open email client
+    window.location.href = mailtoLink;
+
     // Show success message
-    setTimeout(() => {
-      showMessage("Opening your email client...", "success");
-    }, 100);
+    showMessage("Opening your email client...", "success");
+
+    // Reset form
+    contactForm.reset();
   });
 
   function showMessage(text, type) {
@@ -215,34 +227,6 @@ if (document.getElementById("contact-form")) {
   }
 }
 
-// Scroll reveal animation
-window.addEventListener("scroll", revealOnScroll);
-
-function revealOnScroll() {
-  const reveals = document.querySelectorAll(
-    ".project-card, .info-box, .contact-item",
-  );
-
-  reveals.forEach((element) => {
-    const windowHeight = window.innerHeight;
-    const elementTop = element.getBoundingClientRect().top;
-    const elementVisible = 150;
-
-    if (elementTop < windowHeight - elementVisible) {
-      element.style.opacity = "1";
-      element.style.transform = "translateY(0)";
-    }
-  });
-}
-
-// Initialize scroll reveal styling
 document.addEventListener("DOMContentLoaded", () => {
-  const elements = document.querySelectorAll(
-    ".project-card, .info-box, .contact-item",
-  );
-  elements.forEach((element) => {
-    element.style.opacity = "0";
-    element.style.transform = "translateY(20px)";
-    element.style.transition = "opacity 0.2s ease, transform 0.2s ease";
-  });
+  console.log("Portfolio loaded successfully!");
 });
